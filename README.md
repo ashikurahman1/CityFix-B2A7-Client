@@ -9,7 +9,7 @@ Project Name      : CityFix - City Complaint & Service Platform
 Backend Repo      : https://github.com/ashikurahman1/CityFix-B2A6
 Frontend Repo     : https://github.com/ashikurahman1/CityFix-B2A7-Client
 Live Backend URL  : https://cityfix-b7a6.netlify.app
-Live Frontend URL : <add after deploying>
+Live Frontend URL : https://cityfixt.netlify.app
 API Documentation : https://documenter.getpostman.com/view/49370216/2sBYHbrFjo
 Demo Admin Email  : admin@cityfix.com
 Demo Admin Password: Admin@12345
@@ -83,11 +83,11 @@ npm run dev                  # http://localhost:3000
 | `NEXT_PUBLIC_SITE_URL` | Public URL of this site (metadata, sitemap) |
 | `JWT_ACCESS_SECRET` | Optional. Lets `proxy.ts` verify token signatures |
 
-## Deployment (Vercel)
+## Deployment (Netlify)
 
-1. Import the repository in Vercel (framework preset: Next.js).
-2. Set `API_URL`, `NEXT_PUBLIC_SITE_URL` (the Vercel URL) and optionally `JWT_ACCESS_SECRET`.
-3. On the **API** (Netlify) set `CLIENT_URL` to the Vercel URL so Stripe returns to `/payment/success` and
+1. Import the repository in Netlify (Next.js is auto-detected; build `npm run build`, publish `.next`).
+2. Set `API_URL`, `NEXT_PUBLIC_SITE_URL` (the site URL), `NODE_VERSION=22` and optionally `JWT_ACCESS_SECRET`.
+3. On the **API** site set `CLIENT_URL` to this site URL so Stripe returns to `/payment/success` and
    `/payment/cancel` on this site.
 
 ## Scripts
