@@ -7,7 +7,7 @@ whole operation against SLA deadlines.
 ```
 Project Name      : CityFix - City Complaint & Service Platform
 Backend Repo      : https://github.com/ashikurahman1/CityFix-B2A6
-Frontend Repo     : <add after pushing>
+Frontend Repo     : https://github.com/ashikurahman1/CityFix-B2A7-Client
 Live Backend URL  : https://cityfix-b7a6.netlify.app
 Live Frontend URL : <add after deploying>
 API Documentation : https://documenter.getpostman.com/view/49370216/2sBYHbrFjo
