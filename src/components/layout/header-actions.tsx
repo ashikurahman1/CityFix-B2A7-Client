@@ -23,22 +23,22 @@ export function HeaderActions() {
 
   return (
     <div className="flex items-center gap-1.5">
-      <ThemeToggle />
+      <ThemeToggle className="size-10" />
       {isPending ? (
-        <Skeleton className="hidden h-9 w-36 sm:block" />
+        <Skeleton className="hidden h-10 w-44 sm:block" />
       ) : me ? (
         <>
-          <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex">
+          <Button asChild variant="outline" className="hidden h-10 px-4 sm:inline-flex">
             <Link href={ROLE_HOME[me.role]}>Dashboard</Link>
           </Button>
           <UserMenu user={me} />
         </>
       ) : (
         <div className="hidden items-center gap-1.5 sm:flex">
-          <Button asChild size="sm" variant="ghost">
+          <Button asChild variant="ghost" className="h-10 px-4">
             <Link href="/login">Log in</Link>
           </Button>
-          <Button asChild size="sm">
+          <Button asChild className="h-10 px-5 shadow-md shadow-primary/25">
             <Link href="/register">Get started</Link>
           </Button>
         </div>
@@ -46,7 +46,7 @@ export function HeaderActions() {
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu">
+          <Button variant="ghost" size="icon" className="size-10 lg:hidden" aria-label="Open menu">
             <Menu />
           </Button>
         </SheetTrigger>

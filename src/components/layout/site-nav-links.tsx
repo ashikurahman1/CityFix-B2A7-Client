@@ -17,7 +17,7 @@ export function SiteNavLinks() {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
+              "rounded-lg px-3.5 py-2 text-[0.95rem] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
               active && "text-foreground",
             )}
           >
