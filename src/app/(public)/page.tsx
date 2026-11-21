@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CategoryCard } from "@/components/public/category-card";
+import { DepartmentShowcase, FaqTeaser, FeatureBento } from "@/components/public/home-sections";
 import { PublicStats, PublicStatsSkeleton } from "@/components/public/public-stats";
 import { TrackForm } from "@/components/public/track-form";
 import { Button } from "@/components/ui/button";
@@ -113,13 +114,13 @@ function FloatingCard({ className, children }: { className?: string; children: R
   );
 }
 
-function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
+function SectionHeading({ id, eyebrow, title, description }: { id?: string; eyebrow: string; title: string; description?: string }) {
   return (
     <div className="max-w-2xl">
       <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
         <Sparkles className="size-4" aria-hidden="true" /> {eyebrow}
       </p>
-      <h2 className="mt-2 text-3xl font-semibold text-balance sm:text-4xl">{title}</h2>
+      <h2 id={id} className="mt-2 text-3xl font-semibold text-balance sm:text-4xl">{title}</h2>
       {description ? <p className="mt-3 text-lg text-muted-foreground">{description}</p> : null}
     </div>
   );
@@ -234,7 +235,7 @@ export default function HomePage() {
 
       {/* How it works */}
       <section aria-labelledby="how-title" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="How it works" title="From report to resolution in four steps" />
+        <SectionHeading id="how-title" eyebrow="How it works" title="From report to resolution in four steps" />
         <ol className="relative mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <span
             className="absolute top-7 right-[12%] left-[12%] hidden h-0.5 bg-gradient-to-r from-primary via-warning to-success lg:block"
@@ -258,11 +259,25 @@ export default function HomePage() {
         </ol>
       </section>
 
+      {/* Features */}
+      <section aria-labelledby="features-title" className="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <SectionHeading
+            id="features-title"
+            eyebrow="Why CityFix"
+            title="Built for follow-through, not just filing"
+            description="Most complaint boxes stop at submit. CityFix keeps a deadline, an owner and a paper trail on every request."
+          />
+        </div>
+        <FeatureBento />
+      </section>
+
       {/* Services */}
       <section aria-labelledby="services-title" className="border-y bg-muted/40">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <SectionHeading
+              id="services-title"
               eyebrow="Services"
               title="What you can report"
               description="Complaints are free. Paid services show their fee up front."
@@ -289,7 +304,7 @@ export default function HomePage() {
 
       {/* Roles */}
       <section aria-labelledby="roles-title" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Built for everyone" title="One platform, three workspaces" />
+        <SectionHeading id="roles-title" eyebrow="Built for everyone" title="One platform, three workspaces" />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {roles.map(({ icon: Icon, title, tag, points, accent, iconTone }) => (
             <div key={title} className="relative overflow-hidden rounded-3xl border bg-card p-7 shadow-soft">
@@ -314,31 +329,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="bg-brand relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-[2rem] p-8 sm:p-12 md:flex-row md:items-center">
-          <div className="absolute -top-24 -right-24 size-72 rounded-full border-[40px] border-white/5" aria-hidden="true" />
-          <div className="absolute -bottom-32 left-1/3 size-80 rounded-full border-[48px] border-white/5" aria-hidden="true" />
-          <div className="relative">
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Spotted something broken?</h2>
-            <p className="mt-3 max-w-xl text-lg text-white/80">
-              Create a free account and file your first request. Paying for a service takes one Stripe checkout.
-            </p>
-          </div>
-          <div className="relative flex flex-wrap gap-3">
-            <Button asChild size="lg" className="h-12 bg-white px-6 text-base text-primary hover:bg-white/90">
-              <Link href="/register">Create account</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="ghost"
-              className="h-12 px-6 text-base text-white ring-1 ring-white/30 hover:bg-white/10 hover:text-white"
-            >
-              <Link href="/login">Try a demo account</Link>
+      {/* Departments */}
+      <section aria-labelledby="dept-title" className="border-y bg-muted/40">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              id="dept-title"
+              eyebrow="Departments"
+              title="The teams behind every fix"
+              description="Requests are routed by category straight to the department that owns it."
+            />
+            <Button asChild variant="outline" className="bg-card">
+              <Link href="/about">
+                About CityFix <ArrowRight data-icon="inline-end" />
+              </Link>
             </Button>
           </div>
+          <Suspense
+            fallback={
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Skeleton key={i} className="h-56 rounded-3xl" />
+                ))}
+              </div>
+            }
+          >
+            <DepartmentShowcase />
+          </Suspense>
         </div>
+      </section>
+
+      {/* FAQ */}
+      <section aria-label="Frequently asked questions" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <FaqTeaser />
       </section>
     </>
   );
