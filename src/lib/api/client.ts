@@ -138,6 +138,54 @@ export async function authRequest<T>(path: "login" | "register" | "logout", body
   return parse<T>(res);
 }
 
+/**
+ * Multipart upload with progress events (fetch cannot report upload progress, XHR can).
+ * Goes through the same BFF proxy and refreshes the session once on TOKEN_EXPIRED.
+ */
+export function uploadWithProgress<T>(
+  path: string,
+  form: FormData,
+  onProgress: (percent: number) => void,
+): Promise<ApiSuccess<T>> {
+  const attempt = () =>
+    new Promise<{ status: number; body: unknown }>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `/api/proxy${path}`);
+      xhr.withCredentials = true;
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+      };
+      xhr.onload = () => {
+        let body: unknown = null;
+        try {
+          body = JSON.parse(xhr.responseText);
+        } catch {
+          /* non-JSON error page */
+        }
+        resolve({ status: xhr.status, body });
+      };
+      xhr.onerror = () => reject(new ApiError(0, "Upload failed. Check your connection"));
+      xhr.send(form);
+    });
+
+  const toResult = ({ status, body }: { status: number; body: unknown }): ApiSuccess<T> => {
+    const b = body as (ApiSuccess<T> | ApiFailure) | null;
+    if (status >= 200 && status < 300 && b && b.success) return b;
+    const failure = b && b.success === false ? b : null;
+    throw new ApiError(status, failure?.message ?? `Upload failed (${status})`, failure?.errors ?? []);
+  };
+
+  return attempt().then(async (first) => {
+    if (first.status === 401 && (first.body as { code?: string } | null)?.code === "TOKEN_EXPIRED") {
+      if (await refreshSession()) {
+        onProgress(0);
+        return toResult(await attempt());
+      }
+    }
+    return toResult(first);
+  });
+}
+
 /** Human-readable message for any thrown value. */
 export function errorMessage(err: unknown, fallback = "Something went wrong"): string {
   if (err instanceof ApiError) {
