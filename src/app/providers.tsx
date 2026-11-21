@@ -27,11 +27,11 @@ declare module "@tanstack/react-query" {
 function makeQueryClient() {
   return new QueryClient({
     queryCache: new QueryCache({
-      // Background refetch failures of data already on screen surface as a toast.
+      // Every failed API read surfaces as a toast; pages also render an inline error state.
       onError: (error, query) => {
         if (query.meta?.silent) return;
         if (error instanceof ApiError && error.status === 401) return;
-        if (query.state.data !== undefined) toast.error(errorMessage(error));
+        toast.error(errorMessage(error), { id: `q-${query.queryHash}` });
       },
     }),
     mutationCache: new MutationCache({
