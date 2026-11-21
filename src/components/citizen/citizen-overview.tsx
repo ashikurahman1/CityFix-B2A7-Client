@@ -26,12 +26,16 @@ export function CitizenOverview() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <h1 className="text-2xl font-semibold sm:text-3xl">{firstName ? `Hello, ${firstName}` : "Hello"} 👋</h1>
-          <p className="mt-1 text-muted-foreground">Here is what is happening with your requests.</p>
+      <div className="bg-brand relative flex flex-col justify-between gap-5 overflow-hidden rounded-3xl p-6 text-white sm:flex-row sm:items-center sm:p-8">
+        <div className="absolute -top-20 -right-16 size-64 rounded-full border-[36px] border-white/5" aria-hidden="true" />
+        <div className="relative">
+          <p className="text-sm font-medium text-warning">Citizen dashboard</p>
+          <h1 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">
+            {firstName ? `Hello, ${firstName}` : "Hello"} 👋
+          </h1>
+          <p className="mt-1 text-white/80">Here is what is happening with your requests.</p>
         </div>
-        <Button asChild size="lg">
+        <Button asChild size="lg" className="relative h-11 bg-white text-primary hover:bg-white/90">
           <Link href="/dashboard/requests/new">
             <FilePlus2 data-icon="inline-start" /> Report an issue
           </Link>

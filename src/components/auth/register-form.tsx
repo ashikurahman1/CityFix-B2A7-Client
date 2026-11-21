@@ -44,7 +44,7 @@ export function RegisterForm() {
           <AlertDescription>{errorMessage(register.error, "Registration failed")}</AlertDescription>
         </Alert>
       ) : null}
-      <div className="rounded-2xl border bg-card p-6 shadow-sm">
+      <div className="rounded-2xl border bg-card p-6 shadow-soft">
         <FieldGroup>
           <Field data-invalid={!!errors.name}>
             <FieldLabel htmlFor="name">Full name</FieldLabel>

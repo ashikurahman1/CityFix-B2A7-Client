@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { useLogin } from "@/hooks/use-auth";
@@ -55,7 +55,7 @@ export function LoginForm() {
         </Alert>
       ) : null}
 
-      <form onSubmit={onSubmit} noValidate className="rounded-2xl border bg-card p-6 shadow-sm">
+      <form onSubmit={onSubmit} noValidate className="rounded-2xl border bg-card p-6 shadow-soft">
         <FieldGroup>
           <Field data-invalid={!!errors.email}>
             <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -87,7 +87,11 @@ export function LoginForm() {
         </FieldGroup>
       </form>
 
-      <FieldSeparator>or</FieldSeparator>
+      <div className="flex items-center gap-3 text-xs font-medium tracking-wider text-muted-foreground uppercase" role="separator">
+        <span className="h-px flex-1 bg-border" />
+        or
+        <span className="h-px flex-1 bg-border" />
+      </div>
 
       <section aria-labelledby="demo-title">
         <h2 id="demo-title" className="flex items-center justify-center gap-2 font-sans text-sm font-semibold">
@@ -102,7 +106,7 @@ export function LoginForm() {
               <div
                 key={account.role}
                 className={cn(
-                  "flex flex-col rounded-xl border bg-card p-4",
+                  "flex flex-col rounded-xl border bg-card p-4 shadow-soft transition-colors hover:border-primary/40",
                   i === DEMO_ACCOUNTS.length - 1 && "sm:col-span-2 sm:mx-auto sm:w-1/2",
                 )}
               >

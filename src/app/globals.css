@@ -159,10 +159,55 @@
     background-image: radial-gradient(color-mix(in oklch, var(--foreground) 9%, transparent) 1px, transparent 1px);
     background-size: 22px 22px;
   }
+
+  /* Colour mesh behind heroes: teal glow top-left, amber glow top-right. */
+  .bg-mesh {
+    background:
+      radial-gradient(60rem 30rem at 0% -10%, color-mix(in oklch, var(--primary) 22%, transparent), transparent 70%),
+      radial-gradient(40rem 26rem at 100% 0%, color-mix(in oklch, var(--warning) 22%, transparent), transparent 70%),
+      radial-gradient(50rem 30rem at 50% 120%, color-mix(in oklch, var(--info) 12%, transparent), transparent 70%),
+      var(--background);
+  }
+
+  /* Deep brand panel used for stat bands, CTAs and the auth side panel. */
+  .bg-brand {
+    background:
+      radial-gradient(40rem 20rem at 100% 0%, color-mix(in oklch, var(--warning) 35%, transparent), transparent 65%),
+      radial-gradient(40rem 24rem at 0% 100%, oklch(0.62 0.12 185 / 55%), transparent 65%),
+      linear-gradient(135deg, oklch(0.42 0.09 192), oklch(0.3 0.06 210));
+  }
+
+
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px oklch(0.2 0.02 230 / 6%),
+      0 12px 32px -12px oklch(0.3 0.05 200 / 22%);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: float 7s ease-in-out 1.5s infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .animate-float,
+  .animate-float-delayed {
+    animation: none;
   }
 }

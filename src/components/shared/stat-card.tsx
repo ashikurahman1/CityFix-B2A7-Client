@@ -12,6 +12,14 @@ interface StatCardProps {
   className?: string;
 }
 
+const glowClass: Record<NonNullable<StatCardProps["tone"]>, string> = {
+  primary: "from-primary/10",
+  warning: "from-warning/15",
+  success: "from-success/10",
+  danger: "from-destructive/10",
+  info: "from-info/10",
+};
+
 const toneClass: Record<NonNullable<StatCardProps["tone"]>, string> = {
   primary: "bg-primary/12 text-primary",
   warning: "bg-warning/15 text-[color-mix(in_oklch,var(--warning)_70%,var(--foreground))]",
@@ -22,14 +30,15 @@ const toneClass: Record<NonNullable<StatCardProps["tone"]>, string> = {
 
 export function StatCard({ label, value, icon: Icon, hint, tone = "primary", className }: StatCardProps) {
   return (
-    <Card className={cn("gap-0 py-0", className)}>
-      <CardContent className="flex items-start justify-between gap-4 p-5">
+    <Card className={cn("relative gap-0 overflow-hidden py-0 shadow-soft", className)}>
+      <div className={cn("pointer-events-none absolute inset-0 bg-gradient-to-br to-transparent to-60%", glowClass[tone])} aria-hidden="true" />
+      <CardContent className="relative flex items-start justify-between gap-4 p-5">
         <div className="min-w-0">
           <p className="text-sm text-muted-foreground">{label}</p>
           <p className="mt-1.5 font-heading text-2xl font-semibold tabular-nums sm:text-3xl">{value}</p>
           {hint ? <p className="mt-1 truncate text-xs text-muted-foreground">{hint}</p> : null}
         </div>
-        <span className={cn("flex size-10 shrink-0 items-center justify-center rounded-xl", toneClass[tone])}>
+        <span className={cn("flex size-11 shrink-0 items-center justify-center rounded-xl", toneClass[tone])}>
           <Icon className="size-5" aria-hidden="true" />
         </span>
       </CardContent>
