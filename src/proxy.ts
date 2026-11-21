@@ -32,9 +32,11 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Auth pages: bounce signed-in users to their home.
+  // Auth pages: bounce signed-in users to their home. Link prefetches are let through so the
+  // router doesn't cache a redirect for /login that would still apply after logging out.
   if (!neededRole) {
-    if (claims) return NextResponse.redirect(new URL(ROLE_HOME[claims.role], request.url));
+    const isPrefetch = request.headers.has("next-router-prefetch") || request.headers.get("purpose") === "prefetch";
+    if (claims && !isPrefetch) return NextResponse.redirect(new URL(ROLE_HOME[claims.role], request.url));
     return NextResponse.next();
   }
 

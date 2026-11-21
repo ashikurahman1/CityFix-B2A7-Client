@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserPlus } from "lucide-react";
+import { useEffect } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,9 @@ const SERVER_FIELDS = ["name", "email", "phone", "address", "password"] as const
 
 export function RegisterForm() {
   const register = useRegister();
+  const { reset: resetRegister } = register;
+  // See LoginForm: reset when the hidden route is torn down so a revisit starts idle.
+  useEffect(() => () => resetRegister(), [resetRegister]);
   const form = useForm<RegisterValues, unknown, RegisterOutput>({
     resolver: zodResolver(registerSchema),
     defaultValues: { name: "", email: "", phone: "", address: "", password: "", confirmPassword: "", terms: false },

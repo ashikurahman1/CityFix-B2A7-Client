@@ -42,7 +42,6 @@ export function useLogin(next?: string | null) {
       client.clear();
       toast.success(`Welcome back, ${data.user.name.split(" ")[0]}!`);
       router.replace(safeRedirect(next, data.user.role));
-      router.refresh();
     },
   });
 }
@@ -58,7 +57,6 @@ export function useRegister() {
       client.clear();
       toast.success("Account created. Welcome to CityFix!");
       router.replace(ROLE_HOME[data.user.role]);
-      router.refresh();
     },
   });
 }
@@ -74,7 +72,6 @@ export function useLogout() {
       client.setQueryData(qk.me, null);
       toast.success("You have been signed out");
       router.replace("/login");
-      router.refresh();
     },
   });
 }

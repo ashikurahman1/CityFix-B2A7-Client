@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn, Rocket, ShieldCheck, User, Wrench } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,10 @@ const DEMO_ICON: Record<Role, typeof User> = { ADMIN: ShieldCheck, CITIZEN: User
 export function LoginForm() {
   const next = useSearchParams().get("next");
   const login = useLogin(next);
+  const { reset: resetLogin } = login;
+  // Next 16 keeps visited routes alive in a hidden <Activity>; clear the finished login when this
+  // page is hidden so coming back (e.g. after logout) shows an idle form, not a stuck spinner.
+  useEffect(() => () => resetLogin(), [resetLogin]);
   const [demoRole, setDemoRole] = useState<Role | null>(null);
 
   const form = useForm<LoginValues>({
