@@ -42,6 +42,8 @@ interface ComplaintsTableProps {
   hrefFor: (id: string) => string;
   empty: { title: string; description?: string; action?: React.ReactNode };
   pageSize?: number;
+  /** Extra trailing cell, e.g. a quick "Claim" button. */
+  rowAction?: (row: ComplaintListItem) => React.ReactNode;
 }
 
 export function ComplaintsTable({
@@ -52,6 +54,7 @@ export function ComplaintsTable({
   hrefFor,
   empty,
   pageSize = 10,
+  rowAction,
 }: ComplaintsTableProps) {
   const router = useRouter();
   const { values, page, update, setPage, reset, activeCount, isPending } = useUrlState(KEYS);
@@ -128,8 +131,20 @@ export function ComplaintsTable({
         cell: (c) => <span className="text-sm whitespace-nowrap text-muted-foreground">{formatDate(c.createdAt)}</span>,
       },
     );
+    if (rowAction) {
+      cols.push({
+        key: "action",
+        header: <span className="sr-only">Actions</span>,
+        className: "text-right",
+        cell: (c) => (
+          <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+            {rowAction(c)}
+          </div>
+        ),
+      });
+    }
     return cols;
-  }, [role, hrefFor]);
+  }, [role, hrefFor, rowAction]);
 
   const desc = (values.sortOrder ?? "desc") === "desc";
 
