@@ -71,13 +71,14 @@ export function ContactForm({ departments }: { departments: { name: string; emai
         <div className="grid gap-5 sm:grid-cols-2">
           <Field data-invalid={!!errors.name}>
             <FieldLabel htmlFor="c-name">Your name</FieldLabel>
-            <Input id="c-name" autoComplete="name" aria-invalid={!!errors.name} {...form.register("name")} />
+            <Input id="c-name" autoComplete="name" placeholder="Your full name" aria-invalid={!!errors.name} {...form.register("name")} />
             <FieldError errors={[errors.name]} />
           </Field>
           <Field data-invalid={!!errors.email}>
             <FieldLabel htmlFor="c-email">Email</FieldLabel>
             <Input
               id="c-email"
+              placeholder="you@example.com"
               type="email"
               autoComplete="email"
               aria-invalid={!!errors.email}
@@ -88,12 +89,12 @@ export function ContactForm({ departments }: { departments: { name: string; emai
         </div>
         <Field data-invalid={!!errors.subject}>
           <FieldLabel htmlFor="c-subject">Subject</FieldLabel>
-          <Input id="c-subject" aria-invalid={!!errors.subject} {...form.register("subject")} />
+          <Input id="c-subject" placeholder="What is this about?" aria-invalid={!!errors.subject} {...form.register("subject")} />
           <FieldError errors={[errors.subject]} />
         </Field>
         <Field data-invalid={!!errors.message}>
           <FieldLabel htmlFor="c-message">Message</FieldLabel>
-          <Textarea id="c-message" rows={6} aria-invalid={!!errors.message} {...form.register("message")} />
+          <Textarea id="c-message" rows={6} placeholder="Write your message here…" aria-invalid={!!errors.message} {...form.register("message")} />
           <FieldDescription>
             Reporting a problem? File it from your dashboard instead so it gets a tracking code and SLA.
           </FieldDescription>

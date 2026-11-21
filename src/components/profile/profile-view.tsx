@@ -78,7 +78,7 @@ function ProfileForm({ me }: { me: Me }) {
             <div className="grid gap-5 sm:grid-cols-2">
               <Field data-invalid={!!errors.name}>
                 <FieldLabel htmlFor="p-name">Full name</FieldLabel>
-                <Input id="p-name" autoComplete="name" aria-invalid={!!errors.name} {...form.register("name")} />
+                <Input id="p-name" autoComplete="name" placeholder="Your full name" aria-invalid={!!errors.name} {...form.register("name")} />
                 <FieldError errors={[errors.name]} />
               </Field>
               <Field>
@@ -93,7 +93,7 @@ function ProfileForm({ me }: { me: Me }) {
               </Field>
               <Field data-invalid={!!errors.address}>
                 <FieldLabel htmlFor="p-address">Address</FieldLabel>
-                <Input id="p-address" autoComplete="street-address" aria-invalid={!!errors.address} {...form.register("address")} />
+                <Input id="p-address" autoComplete="street-address" placeholder="House, road, area" aria-invalid={!!errors.address} {...form.register("address")} />
                 <FieldError errors={[errors.address]} />
               </Field>
             </div>

@@ -78,6 +78,7 @@ export function LoginForm() {
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <PasswordInput
               id="password"
+              placeholder="Enter your password"
               autoComplete="current-password"
               aria-invalid={!!errors.password}
               {...form.register("password")}

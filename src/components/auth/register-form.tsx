@@ -52,13 +52,14 @@ export function RegisterForm() {
         <FieldGroup>
           <Field data-invalid={!!errors.name}>
             <FieldLabel htmlFor="name">Full name</FieldLabel>
-            <Input id="name" autoComplete="name" className="h-10" aria-invalid={!!errors.name} {...form.register("name")} />
+            <Input id="name" autoComplete="name" placeholder="e.g. Ashikur Rahman" className="h-10" aria-invalid={!!errors.name} {...form.register("name")} />
             <FieldError errors={[errors.name]} />
           </Field>
           <Field data-invalid={!!errors.email}>
             <FieldLabel htmlFor="email">Email</FieldLabel>
             <Input
               id="email"
+              placeholder="you@example.com"
               type="email"
               autoComplete="email"
               className="h-10"
@@ -89,6 +90,7 @@ export function RegisterForm() {
               </FieldLabel>
               <Input
                 id="address"
+                placeholder="e.g. Dhanmondi, Dhaka"
                 autoComplete="address-level2"
                 className="h-10"
                 aria-invalid={!!errors.address}
@@ -101,6 +103,7 @@ export function RegisterForm() {
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <PasswordInput
               id="password"
+              placeholder="At least 8 characters"
               autoComplete="new-password"
               aria-invalid={!!errors.password}
               {...form.register("password")}
@@ -112,6 +115,7 @@ export function RegisterForm() {
             <FieldLabel htmlFor="confirmPassword">Confirm password</FieldLabel>
             <PasswordInput
               id="confirmPassword"
+              placeholder="Re-enter your password"
               autoComplete="new-password"
               aria-invalid={!!errors.confirmPassword}
               {...form.register("confirmPassword")}

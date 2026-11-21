@@ -91,7 +91,7 @@ function DepartmentDialog({ department, trigger }: { department?: Department; tr
           <FieldGroup>
             <Field data-invalid={!!errors.name}>
               <FieldLabel htmlFor="d-name">Name</FieldLabel>
-              <Input id="d-name" aria-invalid={!!errors.name} {...form.register("name")} />
+              <Input id="d-name" placeholder="e.g. Parks and Recreation" aria-invalid={!!errors.name} {...form.register("name")} />
               <FieldError errors={[errors.name]} />
             </Field>
             <Field data-invalid={!!errors.description}>
@@ -102,12 +102,12 @@ function DepartmentDialog({ department, trigger }: { department?: Department; tr
             <div className="grid gap-4 sm:grid-cols-2">
               <Field data-invalid={!!errors.contactEmail}>
                 <FieldLabel htmlFor="d-email">Contact email</FieldLabel>
-                <Input id="d-email" type="email" aria-invalid={!!errors.contactEmail} {...form.register("contactEmail")} />
+                <Input id="d-email" type="email" placeholder="desk@cityfix.com" aria-invalid={!!errors.contactEmail} {...form.register("contactEmail")} />
                 <FieldError errors={[errors.contactEmail]} />
               </Field>
               <Field data-invalid={!!errors.contactPhone}>
                 <FieldLabel htmlFor="d-phone">Contact phone</FieldLabel>
-                <Input id="d-phone" type="tel" aria-invalid={!!errors.contactPhone} {...form.register("contactPhone")} />
+                <Input id="d-phone" type="tel" placeholder="+880 2 1234567" aria-invalid={!!errors.contactPhone} {...form.register("contactPhone")} />
                 <FieldError errors={[errors.contactPhone]} />
               </Field>
             </div>
@@ -279,7 +279,7 @@ function CategoryDialog({ category, trigger }: { category?: Category; trigger: R
           <FieldGroup className="max-h-[60vh] overflow-y-auto pe-1">
             <Field data-invalid={!!errors.name}>
               <FieldLabel htmlFor="c-name">Name</FieldLabel>
-              <Input id="c-name" aria-invalid={!!errors.name} {...form.register("name")} />
+              <Input id="c-name" placeholder="e.g. Broken Footpath" aria-invalid={!!errors.name} {...form.register("name")} />
               <FieldError errors={[errors.name]} />
             </Field>
             <Field>

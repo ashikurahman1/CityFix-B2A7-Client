@@ -124,18 +124,18 @@ export function CreateUserDialog() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Field data-invalid={!!errors.name}>
                 <FieldLabel htmlFor="u-name">Full name</FieldLabel>
-                <Input id="u-name" aria-invalid={!!errors.name} {...form.register("name")} />
+                <Input id="u-name" placeholder="e.g. Rahim Uddin" aria-invalid={!!errors.name} {...form.register("name")} />
                 <FieldError errors={[errors.name]} />
               </Field>
               <Field data-invalid={!!errors.email}>
                 <FieldLabel htmlFor="u-email">Email</FieldLabel>
-                <Input id="u-email" type="email" aria-invalid={!!errors.email} {...form.register("email")} />
+                <Input id="u-email" type="email" placeholder="name@cityfix.com" aria-invalid={!!errors.email} {...form.register("email")} />
                 <FieldError errors={[errors.email]} />
               </Field>
             </div>
             <Field data-invalid={!!errors.password}>
               <FieldLabel htmlFor="u-password">Temporary password</FieldLabel>
-              <PasswordInput id="u-password" autoComplete="new-password" aria-invalid={!!errors.password} {...form.register("password")} />
+              <PasswordInput id="u-password" autoComplete="new-password" placeholder="At least 8 characters" aria-invalid={!!errors.password} {...form.register("password")} />
               <FieldDescription>At least 8 characters with a letter and a number.</FieldDescription>
               <FieldError errors={[errors.password]} />
             </Field>
@@ -165,7 +165,7 @@ export function CreateUserDialog() {
                 <FieldLabel htmlFor="u-phone">
                   Phone <span className="font-normal text-muted-foreground">(optional)</span>
                 </FieldLabel>
-                <Input id="u-phone" type="tel" aria-invalid={!!errors.phone} {...form.register("phone")} />
+                <Input id="u-phone" type="tel" placeholder="+8801712345678" aria-invalid={!!errors.phone} {...form.register("phone")} />
                 <FieldError errors={[errors.phone]} />
               </Field>
             </div>
