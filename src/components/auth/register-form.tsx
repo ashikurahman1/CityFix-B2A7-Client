@@ -28,7 +28,7 @@ export function RegisterForm() {
   const password = useWatch({ control: form.control, name: "password" });
 
   const onSubmit = form.handleSubmit((values) => {
-    const { confirmPassword: _c, terms: _t, ...body } = values;
+    const body = { name: values.name, email: values.email, phone: values.phone, address: values.address, password: values.password };
     register.mutate(body, {
       onError: (err) => applyServerErrors(err, form.setError, SERVER_FIELDS),
     });

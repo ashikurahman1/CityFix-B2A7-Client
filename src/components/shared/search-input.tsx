@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@/lib/utils";
@@ -18,21 +18,24 @@ interface SearchInputProps {
 /** Debounced search box. Pushes the term to the URL only after the user pauses typing. */
 export function SearchInput({ value, onChange, placeholder = "Search…", minLength = 2, className }: SearchInputProps) {
   const [text, setText] = useState(value ?? "");
+  const [synced, setSynced] = useState(value);
   const debounced = useDebounce(text, 400);
-  const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
 
-  // Keep in sync when the URL changes from elsewhere (back button, "clear filters").
-  useEffect(() => {
+  // Keep in sync when the URL changes from elsewhere (back button, "clear filters"):
+  // adjust state during render instead of in an effect.
+  if (value !== synced) {
+    setSynced(value);
     setText(value ?? "");
-  }, [value]);
+  }
+
+  const emit = useEffectEvent((term: string) => {
+    if (term === (value ?? "")) return;
+    if (term.length === 0 || term.length >= minLength) onChange(term);
+  });
 
   useEffect(() => {
-    const term = debounced.trim();
-    if (term === (value ?? "")) return;
-    if (term.length === 0 || term.length >= minLength) onChangeRef.current(term);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debounced, minLength]);
+    emit(debounced.trim());
+  }, [debounced]);
 
   return (
     <InputGroup className={cn("h-9 w-full sm:w-72", className)}>

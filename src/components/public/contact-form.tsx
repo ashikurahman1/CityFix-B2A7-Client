@@ -36,7 +36,7 @@ export function ContactForm({ departments }: { departments: { name: string; emai
   const onSubmit = form.handleSubmit((v) => {
     const body = `${v.message}\n\n— ${v.name} (${v.email})`;
     const href = `mailto:${v.departmentEmail}?subject=${encodeURIComponent(v.subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = href;
+    window.location.assign(href);
     toast.success("Your email app is opening with the message ready to send.");
     form.reset();
   });

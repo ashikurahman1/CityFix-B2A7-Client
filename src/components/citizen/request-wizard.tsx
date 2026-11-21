@@ -34,6 +34,7 @@ import { applyServerErrors } from "@/lib/form-errors";
 import { formatHours, formatMoney } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { createComplaintSchema, type CreateComplaintValues, WIZARD_STEPS } from "@/lib/validations/complaint";
+import { useIsClient } from "@/hooks/use-is-client";
 import { useRequestDraft } from "@/stores/request-draft";
 import type { Category, CreateComplaintResult, Priority } from "@/types/api";
 
@@ -201,7 +202,8 @@ function SuccessView({ result, onAnother }: { result: CreateComplaintResult; onA
 /** Four-step wizard. Each step validates its own fields; the draft survives refreshes. */
 export function RequestWizard() {
   const { draft, step, patch, setStep, reset: resetDraft } = useRequestDraft();
-  const [hydrated, setHydrated] = useState(false);
+  // The draft lives in sessionStorage, so the form only renders on the client (no hydration mismatch).
+  const hydrated = useIsClient();
   const [result, setResult] = useState<CreateComplaintResult | null>(null);
   const [locating, setLocating] = useState(false);
   const categories = useCategories();
@@ -212,12 +214,6 @@ export function RequestWizard() {
     defaultValues: draft,
     mode: "onTouched",
   });
-
-  // sessionStorage is client-only: load the draft after mount to avoid a hydration mismatch.
-  useEffect(() => {
-    form.reset(useRequestDraft.getState().draft);
-    setHydrated(true);
-  }, [form]);
 
   const values = useWatch({ control: form.control });
   useEffect(() => {

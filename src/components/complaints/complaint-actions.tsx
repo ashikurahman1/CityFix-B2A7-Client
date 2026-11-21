@@ -2,6 +2,7 @@
 
 import { Ban, CheckCircle2, CreditCard, Hand, Play, RotateCcw, Star, Trash2, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -33,6 +34,8 @@ export function ComplaintActions({ complaint, role, me }: { complaint: Complaint
   const checkout = useStartCheckout();
   const router = useRouter();
   const s = complaint.status;
+  // Captured once per mount: render must stay pure for the React Compiler.
+  const [now] = useState(() => Date.now());
   const busy = action.isPending;
 
   const del = (
@@ -57,7 +60,7 @@ export function ComplaintActions({ complaint, role, me }: { complaint: Complaint
     const reopenDeadline = complaint.resolvedAt
       ? new Date(complaint.resolvedAt).getTime() + REOPEN_WINDOW_DAYS * 864e5
       : 0;
-    const canReopen = s === "RESOLVED" && Date.now() < reopenDeadline;
+    const canReopen = s === "RESOLVED" && now < reopenDeadline;
 
     return (
       <div className="flex flex-wrap gap-2">

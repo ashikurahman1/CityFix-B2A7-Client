@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Building2, CalendarDays, KeyRound, Mail, Save, ShieldCheck, Gauge } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { PasswordInput } from "@/components/auth/password-input";
@@ -84,7 +84,7 @@ function ProfileForm({ me }: { me: Me }) {
               <Field>
                 <FieldLabel htmlFor="p-email">Email</FieldLabel>
                 <Input id="p-email" value={me.email} disabled readOnly />
-                <FieldDescription>Email can't be changed.</FieldDescription>
+                <FieldDescription>Email can&apos;t be changed.</FieldDescription>
               </Field>
               <Field data-invalid={!!errors.phone}>
                 <FieldLabel htmlFor="p-phone">Phone</FieldLabel>
@@ -161,7 +161,7 @@ function PasswordForm({ me }: { me: Me }) {
   });
 
   const { errors } = form.formState;
-  const newPassword = form.watch("newPassword");
+  const newPassword = useWatch({ control: form.control, name: "newPassword" });
 
   return (
     <form onSubmit={form.handleSubmit((v) => change.mutate(v))} noValidate>

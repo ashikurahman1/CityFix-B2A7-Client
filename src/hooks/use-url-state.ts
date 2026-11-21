@@ -13,12 +13,13 @@ export function useUrlState<K extends string>(keys: readonly K[], defaults: Part
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
+  const keyList = keys.join("|");
   const values = useMemo(() => {
     const out = {} as Record<K, string | undefined>;
     for (const key of keys) out[key] = searchParams.get(key) ?? defaults[key];
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, keys.join("|")]);
+  }, [searchParams, keyList]);
 
   const page = Math.max(1, Number(searchParams.get("page") ?? 1) || 1);
 
