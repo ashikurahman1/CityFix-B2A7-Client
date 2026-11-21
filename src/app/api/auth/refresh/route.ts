@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     return res;
   }
 
-  const res = NextResponse.json({ success: true, message: "Session refreshed", data: { user: tokens.user } });
+  const res = NextResponse.json({ success: true, message: "Session refreshed", data: null });
   setAuthCookies(res, tokens);
   return res;
 }
