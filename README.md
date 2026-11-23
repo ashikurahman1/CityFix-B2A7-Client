@@ -11,8 +11,9 @@ Frontend Repo     : https://github.com/ashikurahman1/CityFix-B2A7-Client
 Live Backend URL  : https://cityfix-b7a6.netlify.app
 Live Frontend URL : https://cityfixt.netlify.app
 API Documentation : https://documenter.getpostman.com/view/49370216/2sBYHbrFjo
-Demo Admin Email  : admin@cityfix.com
-Demo Admin Password: Admin@12345
+Demo Video        : https://drive.google.com/file/d/1UPRnJdlkBPzGDrgmUGmSGhctzQ1WfdtP/view?usp=sharing
+Demo Admin Email    : admin@cityfix.com
+Demo Admin Password : Admin@12345
 ```
 
 | Role (demo login) | Email | Password |
